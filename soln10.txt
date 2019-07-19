@@ -1,0 +1,43 @@
+-->Create a Compute Engine instance
+
+    1.In the GCP Console, go to Compute > Compute Engine.
+    2.To create a VM instance, click Create.
+    3.In the Firewall field, select both Allow HTTP traffic and Allow HTTPS traffic.
+    4.Leave the rest of the fields at their default values.
+    5.Click Create. Wait a couple of minutes for your instance to launch on the VM Instances page.
+    6.To open a terminal to your instance, in the Connect column, click SSH.
+    7.Update the package lists on your instance.
+        sudo apt-get update
+    8.Set up the Apache2 HTTP Server.
+        sudo apt-get install apache2 php7.0
+
+-->Create an uptime check
+
+    1.Go back to the Stackdriver Monitoring console.
+    2.Uptime Checks > Uptime Checks Overview and then click Add Uptime Check or Create an Uptime Check.
+    3.Fill in the following fields for the new uptime check:
+        In the Title field, enter Title
+        In the Resource Type drop-down list, select Instance.
+        In the Applies To field, enter Single, select Instance
+    4.Leave the other fields with their default values.
+    5.Create an uptime check
+
+    To verify that your uptime check is working, click Test.
+    Click Save
+
+-->Create an alerting policy
+
+    1.In the Uptime Check Created pane, click Create Alerting Policy.
+
+    2.In the Untitled Condition field, enter a title for the alert policy condition. All other fields are in the conditions pane are automatically populated from the uptime check you created.
+    3.Create Condition
+    4.Click Save.
+    5.In the Notification Channel Type drop-down list, select Email.
+    6.Create new Alerting Policy
+    7.Enter your email address and then click Add Notification Channel.
+    8In the Name this policy pane, enter My Uptime Check Policy.
+    9.Click Save. You see a summary of the policy.
+
+    To check Email alerting is working or not;
+        Stop the VM Instance
+        Then Stackdriver alert email will come. 

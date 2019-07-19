@@ -1,0 +1,25 @@
+Create VPC:
+1. Go to the VPC networks page in the Google Cloud Platform Console and Click Create VPC network.
+2. Enter a Name for the network, Choose Custom for the Subnet creation mode.
+3. Keep the subnet section.
+4. Choose the Dynamic routing mode for the VPC network.
+5. Click Create.
+
+
+Create Firewall:
+1.  Go to the Firewall rules page and Click Create firewall rule.
+2.  Enter a Name for the firewall rule which would be unique for the project.
+3.  Click Logs > On.
+4.  Specify the Network as the one created above where the firewall rule will be implemented.
+5.  Keep the Priority of the rule.
+6.  For the Direction of traffic, choose ingress.
+7.  For the Action on match, choose allow or deny.
+8.  Specify the Targets of the rule. choose All instances in the network.
+9.  For an ingress rule, specify the Source filter:
+        Choose the Quantiphi IP ranges and type the CIDR blocks into the Source IP ranges field to define the source for incoming traffic by IP address ranges.
+10. Define the Protocols and ports to which the rule will apply:
+11. Select Allow.
+12. Define specific protocols and ports:
+        Select tcp to include the TCP protocol and ports. Enter 22.
+            
+    Click Create.

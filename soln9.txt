@@ -1,0 +1,50 @@
+Q9
+	1. Create a json file.
+	2. Create bucket and upload the json file.
+	3. Go to Pubsub
+	4. Create topic
+	5. Go to Cloud Function
+	6. Create a new function
+	7. Enter the name
+	8. Trigger: cloud pub/sub
+	9. Select the topic created above
+	10. runtime: python 3.7
+	11. Put the following code in main.py
+
+Cloud Function CODE 
+-->main.py
+
+import base64
+from google.cloud import storage
+from google.cloud import datastore
+import json
+def hello_pubsub(event,context):
+    """Triggered from a message on a Cloud Pub/Sub topic.
+    Args:
+         event (dict): Event payload.
+         context (google.cloud.functions.Context): Metadata for the event.
+    """
+    
+    dsClient = datastore.Client()
+    sClient = storage.Client()
+    bucket = sClient.get_bucket(event['bucket'])
+    blob = storage.blob.Blob(event['objectPath'],bucket)
+    content = blob.download_as_string()
+    contentDict = json.loads(content)
+    
+    key = dsClient.key('PubSubTrigger', event['bucket'] + "/" + event['objectPath'] )
+    entity = datastore.Entity(key=key)
+    entity.update(contentDict)
+    dsClient.put(entity)
+ 
+	12. Enter The Requirements
+	13. Click create
+	14. Go to Pubsub topic created
+	15. Publish message
+	Enter the bucket name <Enter>
+	Enter the object name (json file)
+	16. Publish the message
+	17. Go to Datastore
+	18. Click on query by kind-> Choose kind=PubSubTrigger
+	Table will be displayed showing Entities.
+

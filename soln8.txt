@@ -1,0 +1,19 @@
+1.Create instance templates with startup script
+
+$ gcloud compute --project=pe-training instance-templates create syj-test2-template --machine-type=n1-standard-1 --network=projects/pe-training/global/networks/default --network-tier=PREMIUM --maintenance-policy=MIGRATE --service-account=912623308461-       compute@developer.gserviceaccount.com --scopes=https://www.googleapis.com/auth/devstorage.read_only,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/servicecontrol,https://www.googleapis.com/auth/service.management.readonly,https://www.googleapis.com/auth/trace.append --tags=http-server --image=ubuntu-1810-cosmic-v20190628 --image-project=ubuntu-os-cloud --boot-disk-size=10GB --boot-disk-type=pd-standard --boot-disk-device-name=syj-test-template --metadata-from-file startup-script=/home/semil/Desktop/gcp-ass1/startup.sh
+
+
+2.Create Managed instance groups with autoscaling on
+
+$ gcloud compute --project=pe-training instance-groups managed create syj-i-group --base-instance-name=syj-i-group --template=syj-test2-template --size=1 --description="autoscaling with startup script" --zone=us-central1-a
+
+$ gcloud beta compute --project "pe-training" instance-groups managed set-autoscaling "syj-i-group" --zone "us-central1-a" --cool-down-period "60" --max-num-replicas "10" --min-num-replicas "1" --target-cpu-utilization "0.6"
+
+3. Check the autoscaled instances in the vm instances page. 
+
+Startup -script
+#! /bin/bash
+sudo apt update
+sudo apt install -y apache2 stress
+sudo hostname > /var/www/html/index.html
+sudo stress --cpu 1 --timeout 120

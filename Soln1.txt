@@ -1,0 +1,10 @@
+1. Download and extract package
+2. For command completion (Optional):
+    ./google-cloud-sdk/install.sh
+3. SDK initiallisation:
+    ./google-cloud-sdk/bin/gcloud init
+4. View components:
+    ./google-cloud-sdk/bin/gcloud init
+5. Install required components using:
+    gcloud components install COMPONENT_ID
+

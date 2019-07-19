@@ -1,0 +1,15 @@
+1. gcloud config configurations create CONFIGURATION_NAME
+2. Create and Activate a new config:
+    gcloud config configurations create yr-config
+3. gcloud config set core/account yashraj.gangal@quantiphi.com
+4. gcloud config set core/project pe-training
+5. gcloud config configurations list
+
+NAME       IS_ACTIVE  ACCOUNT                       PROJECT      DEFAULT_ZONE   DEFAULT_REGION
+default    False      yashraj.gangal@quantiphi.com  pe-training  us-central1-a  us-central1
+yr-config  True       yashraj.gangal@quantiphi.com  pe-training
+
+6. To switch between configurations:
+gcloud config configurations activate yr-config 
+gcloud config configurations activate default
+
